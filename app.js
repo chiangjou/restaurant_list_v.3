@@ -1,40 +1,41 @@
-// require package used in the project
 const express = require('express')
+const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
-const port = 3000
-const app = express()
+const Restaurant = require('./models/restaurant')
 
-// 僅在非正式環境時, 使用 dotenv
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 
-// 設定連線到 mongoDB
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
 
-// 取得資料庫連線狀態
 const db = mongoose.connection
-// 連線異常
+
 db.on('error', () => {
   console.log('mongo error!')
 })
-// 連線成功
+
 db.once('open', () => {
   console.log('mongodb connected!')
 })
 
-// require express-handlebars here
-const exphbs = require('express-handlebars')
-const restaurantList = require('./restaurant.json')
+const port = 3000
+const app = express()
 
-// setting template engine
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
-app.set('view engine', 'handlebars')
-
-// setting static files
+app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
+app.set('view engine', '.hbs')
 app.use(express.static('public'))
 
-// routes setting
+// 新增餐廳頁面
+// 瀏覽特定餐廳
+// 新增餐廳
+// 編輯餐廳頁面
+// 更新餐廳
+// 刪除餐廳
+
 app.get('/', (req, res) => {
   // past the restaurant data into 'index' partial template
   res.render('index', { restaurants: restaurantList.results })
@@ -53,7 +54,6 @@ app.get('/search', (req, res) => {
   res.render('index', { restaurants: restaurants, keyword: keyword })
 })
 
-// start and listen on the Express server
 app.listen(port, () => {
-  console.log(`Express is listening on localhost:${port}`)
+  console.log(`Express is listening on http://localhost:${port}`)
 })
