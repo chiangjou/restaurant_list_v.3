@@ -37,8 +37,10 @@ app.use(express.static('public'))
 // 刪除餐廳
 
 app.get('/', (req, res) => {
-  // past the restaurant data into 'index' partial template
-  res.render('index', { restaurants: restaurantList.results })
+  Restaurant.find()
+    .lean()
+    .then(restaurants => res.render('index', { restaurants: restaurantList.results }))
+    .catch(error => console.log(error))
 })
 
 app.get('/restaurants/:restaurant_id', (req, res) => {
