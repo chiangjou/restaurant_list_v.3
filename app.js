@@ -3,6 +3,7 @@ const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const Restaurant = require('./models/restaurant')
+const restaurant = require('./models/restaurant')
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
@@ -28,10 +29,10 @@ const app = express()
 
 app.engine("handlebars", exphbs({ defaultLayout: "main" }))
 app.set("view engine", "handlebars")
-app.use(bodyParser.urlencoded({ extend: true }))
 app.use(express.static('public'))
+app.use(bodyParser.urlencoded({ extended: true }))
 
-// 瀏覽特定餐廳
+
 
 // 編輯餐廳頁面
 // 更新餐廳
@@ -41,20 +42,29 @@ app.use(express.static('public'))
 app.get('/', (req, res) => {
   Restaurant.find()
     .lean()
-    .then(restaurants => res.render('index', { restaurants: restaurantList.results }))
+    .then(restaurantsData => res.render('index', { restaurantsData }))
     .catch(error => console.log(error))
 })
 
-// 新增餐廳
+// 新增餐廳頁面
 app.get('/restaurants/new', (req, res) => {
   return res.render('new')
 })
 
+// 新增餐廳
 app.post('/restaurants', (req, res) => {
-  const name = req.body.name
-  return Restaurant.create{ { name } }
-  .then(() => res.redirect('/'))
+  return Restaurant.create(req.body)
+    .then(() => res.redirect('/'))
     .catch(error => console.log(error))
+})
+
+// 瀏覽特定餐廳
+app.get('/restaurants/:restaurant_id', (req, res) => {
+  const restaurant_id = req.params.id
+  return Restaurant.findById(restaurant_id)
+  .lean()
+  .then((restaurantData) => res.render('show', { restaurantData }))
+  .catch(error => console.log(error))
 })
 
 app.get('/restaurants/:restaurant_id', (req, res) => {
