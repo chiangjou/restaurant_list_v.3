@@ -1,5 +1,6 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
+const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const Restaurant = require('./models/restaurant')
 
@@ -25,21 +26,34 @@ db.once('open', () => {
 const port = 3000
 const app = express()
 
-app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
-app.set('view engine', '.hbs')
+app.engine("handlebars", exphbs({ defaultLayout: "main" }))
+app.set("view engine", "handlebars")
+app.use(bodyParser.urlencoded({ extend: true }))
 app.use(express.static('public'))
 
-// 新增餐廳頁面
 // 瀏覽特定餐廳
-// 新增餐廳
+
 // 編輯餐廳頁面
 // 更新餐廳
 // 刪除餐廳
 
+// 瀏覽全部餐廳
 app.get('/', (req, res) => {
   Restaurant.find()
     .lean()
     .then(restaurants => res.render('index', { restaurants: restaurantList.results }))
+    .catch(error => console.log(error))
+})
+
+// 新增餐廳
+app.get('/restaurants/new', (req, res) => {
+  return res.render('new')
+})
+
+app.post('/restaurants', (req, res) => {
+  const name = req.body.name
+  return Restaurant.create{ { name } }
+  .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
 
