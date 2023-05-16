@@ -32,10 +32,6 @@ app.set("view engine", "handlebars")
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }))
 
-
-
-// 編輯餐廳頁面
-// 更新餐廳
 // 刪除餐廳
 
 // 瀏覽全部餐廳
@@ -62,9 +58,26 @@ app.post('/restaurants', (req, res) => {
 app.get('/restaurants/:restaurant_id', (req, res) => {
   const restaurant_id = req.params.id
   return Restaurant.findById(restaurant_id)
-  .lean()
-  .then((restaurantData) => res.render('show', { restaurantData }))
-  .catch(error => console.log(error))
+    .lean()
+    .then((restaurantData) => res.render('detail', { restaurantData }))
+    .catch(error => console.log(error))
+})
+
+// 編輯餐廳頁面
+app.get('/restaurants/:restaurantId/edit', (req, res) => {
+  const { restaurantId } = req.params
+  Restaurant.findById(restaurantId)
+    .lean()
+    .then(restaurantData => res.render("edit", { restaurantData }))
+    .catch(err => console.log(err))
+})
+
+// 更新餐廳
+app.put('/restaurants/:restaurantId', (req, res) => {
+  const { restaurantId } = req.params
+  Restaurant.findByIdAndUpdate(restaurantId, req.body)
+    .then(() => res.redirect(`/restaurants/${restaurant_id}`))
+    .catch(error => console.log(error))
 })
 
 app.get('/restaurants/:restaurant_id', (req, res) => {
