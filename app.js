@@ -32,8 +32,6 @@ app.set("view engine", "handlebars")
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }))
 
-// 刪除餐廳
-
 // 瀏覽全部餐廳
 app.get('/', (req, res) => {
   Restaurant.find()
@@ -77,6 +75,15 @@ app.put('/restaurants/:restaurantId', (req, res) => {
   const { restaurantId } = req.params
   Restaurant.findByIdAndUpdate(restaurantId, req.body)
     .then(() => res.redirect(`/restaurants/${restaurant_id}`))
+    .catch(error => console.log(error))
+})
+
+// 刪除餐廳
+app.post('/restaurants/:restaurantId/delete', (req, res) => {
+  const { restaurantId } = req.params
+  Restaurant.findByIdAndUpdate(restaurantId)
+    .then(restaurant => restaurant.remove())
+    .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
 
