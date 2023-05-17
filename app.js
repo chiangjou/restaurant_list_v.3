@@ -1,105 +1,33 @@
+// Include express from node_modules
 const express = require('express')
-const exphbs = require('express-handlebars')
-const bodyParser = require('body-parser')
-const mongoose = require('mongoose')
-const Restaurant = require('./models/restaurant')
-const restaurant = require('./models/restaurant')
-
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config()
-}
-
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-
-const db = mongoose.connection
-
-db.on('error', () => {
-  console.log('mongo error!')
-})
-
-db.once('open', () => {
-  console.log('mongodb connected!')
-})
-
-const port = 3000
 const app = express()
+// Define server related variables
+const port = 3000
+// require express-handlebars here
+const exphbs = require('express-handlebars')
+// Include method-override
+const methodOverride = require('method-override')
+// Include body-parser
+const bodyParser = require('body-parser')
+// Include router
+const routes = require('./routes')
+// require mongoose
+require('./config/mongoose')
 
+// setting template engine
 app.engine("handlebars", exphbs({ defaultLayout: "main" }))
 app.set("view engine", "handlebars")
+
+// setting static engine
 app.use(express.static('public'))
+// Ask every request use body-parser
 app.use(bodyParser.urlencoded({ extended: true }))
+// Ask every request use methodOverride
+app.use(methodOverride('_method'))
+// Direct request to router
+app.use(routes)
 
-// 瀏覽全部餐廳
-app.get('/', (req, res) => {
-  Restaurant.find()
-    .lean()
-    .then(restaurantsData => res.render('index', { restaurantsData }))
-    .catch(error => console.log(error))
-})
-
-// 新增餐廳頁面
-app.get('/restaurants/new', (req, res) => {
-  return res.render('new')
-})
-
-// 新增餐廳
-app.post('/restaurants', (req, res) => {
-  return Restaurant.create(req.body)
-    .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
-})
-
-// 瀏覽特定餐廳
-app.get('/restaurants/:restaurant_id', (req, res) => {
-  const restaurant_id = req.params.id
-  return Restaurant.findById(restaurant_id)
-    .lean()
-    .then((restaurantData) => res.render('detail', { restaurantData }))
-    .catch(error => console.log(error))
-})
-
-// 編輯餐廳頁面
-app.get('/restaurants/:restaurantId/edit', (req, res) => {
-  const { restaurantId } = req.params
-  Restaurant.findById(restaurantId)
-    .lean()
-    .then(restaurantData => res.render("edit", { restaurantData }))
-    .catch(err => console.log(err))
-})
-
-// 更新餐廳
-app.put('/restaurants/:restaurantId', (req, res) => {
-  const { restaurantId } = req.params
-  Restaurant.findByIdAndUpdate(restaurantId, req.body)
-    .then(() => res.redirect(`/restaurants/${restaurant_id}`))
-    .catch(error => console.log(error))
-})
-
-// 刪除餐廳
-app.post('/restaurants/:restaurantId/delete', (req, res) => {
-  const { restaurantId } = req.params
-  Restaurant.findByIdAndUpdate(restaurantId)
-    .then(restaurant => restaurant.remove())
-    .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
-})
-
-app.get('/restaurants/:restaurant_id', (req, res) => {
-  const restaurant = restaurantList.results.find(restaurant => restaurant.id.toString() === req.params.restaurant_id)
-  res.render('show', { restaurant: restaurant })
-})
-
-app.get('/search', (req, res) => {
-  const keyword = req.query.keyword
-  const restaurants = restaurantList.results.filter(restaurant => {
-    return restaurant.name.toLowerCase().includes(keyword.toLowerCase()) || restaurant.category.toLowerCase().includes(keyword.toLowerCase())
-  })
-  res.render('index', { restaurants: restaurants, keyword: keyword })
-})
-
+// Start and Listen the server
 app.listen(port, () => {
   console.log(`Express is listening on http://localhost:${port}`)
 })

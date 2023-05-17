@@ -1,60 +1,78 @@
-<h1 class="mb-1 restaurant-show-title">新增餐廳</h1>
-<div class="container">
+<div>
+  <h1 class="mb-1 title">新增餐廳</h1>
   <form action="/restaurants" method="POST">
     <div class="mb-3">
-      <label for="name" class="form-label">店名<span class="text-danger">*</span></label>
-      <input type="text" class="form-control" id="name" placeholder="阿爾發餐廳" name="name" required />
+      <label for="name" class="form-label">餐廳中文店名<span class="text-danger">*</span></label>
+      <input type="text" class="form-control" id="name" placeholder="" name="name" required />
     </div>
+
     <div class="mb-3">
-      <label for="name_en" class="form-label">英文店名<span class="text-danger">*</span></label>
-      <input type="text" class="form-control" id="name_en" placeholder="Alpha Restaurant" name="name_en" required />
+      <label for="name_en" class="form-label">餐廳英文店名<span class="text-danger">*</span></label>
+      <input type="text" class="form-control" id="name_en" placeholder="" name="name_en" required />
     </div>
+
     <div class="mb-3">
       <label for="category" class="form-label">分類<span class="text-danger">*</span></label>
       <input type="text" class="form-control" id="category" placeholder="美式" list="categoryOptions" name="category"
         required />
       <datalist id="categoryOptions">
-        <option>美式</option>
-        <option>咖啡</option>
+        <option>台式料理</option>
+        <option>美式料理</option>
+        <option>中式料理</option>
+        <option>日式料理</option>
+        <option>韓式料理</option>
+        <option>東南亞料理</option>
         <option>中東料理</option>
-        <option>日本料理</option>
-        <option>義式料理</option>
+        <option>歐式料理</option>
+        <option>咖啡甜點</option>
       </datalist>
     </div>
+
     <div class="mb-3">
-      <label for="image" class="form-label">圖片連結<span class="text-danger">*</span></label>
-      <input type="url" class="form-control" id="image" name="image" required />
+      <label for="image" class="form-label">餐廳照片網址<span class="text-danger">*</span></label>
+      <input type="url" class="form-control" placeholder="" id="image" name="image" required />
     </div>
+
     <div class="mb-3">
-      <label for="location" class="form-label">地址<span class="text-danger">*</span></label>
-      <input type="text" class="form-control" id="location" placeholder="台中市北屯區迷有這條路520號" name="location" required />
+      <label for="location" class="form-label">餐廳地址<span class="text-danger">*</span></label>
+      <input type="text" class="form-control" id="location" placeholder="" name="location" required />
     </div>
+
     <div class="mb-3">
-      <label for="phone" class="form-label">電話<span class="text-danger">*</span></label>
-      <input type="tel" class="form-control" id="phone" placeholder="04-23456789" name="phone" required />
+      <label for="phone" class="form-label">餐廳電話<span class="text-danger">*</span></label>
+      <input type="tel" class="form-control" id="phone" placeholder="" name="phone" required />
     </div>
+
     <div class="mb-3">
       <label for="google_map" class="form-label">Google地圖連結<span class="text-danger">*</span></label>
-      <input type="url" class="form-control" id="google_map" name="google_map" required />
+      <input type="url" class="form-control" id="google_map" placeholder="" name="google_map" required />
     </div>
+
     <div class="mb-3">
       <label for="rating" class="form-label">評分<span class="text-danger">*</span></label>
-      <input type="number" class="form-control" id="rating" min="0" max="5" step="0.1" name="rating" required />
+      <input type="number" class="form-control" id="rating" min="0" max="5" step="0.1" placeholder="" name="rating"
+        required />
     </div>
+
     <div class="mb-3">
-      <label for="description" class="form-label">敘述<span class="text-danger">*</span></label>
-      <textarea class="form-control" id="description" row="3" name="description" required></textarea>
+      <label for="description" class="form-label">餐廳敘述<span class="text-danger">*</span></label>
+      <textarea class="form-control" id="description" row="3" name="description" required />
+      </textarea>
     </div>
+
     <div class="text-center">
       <button type="submit" class="btn btn-primary">
         新增餐廳
       </button>
+
       <a href="/">
         <button type="button" class="btn btn-outline-secondary">
           返回首頁
         </button>
       </a>
+
       <button type="reset" class="btn btn-outline-danger">重新輸入</button>
+
     </div>
   </form>
 </div>
