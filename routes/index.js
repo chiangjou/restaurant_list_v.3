@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
 
-// Direct routes
 const home = require('./modules/home')
 const restaurants = require('./modules/restaurants')
 const search = require('./modules/search')

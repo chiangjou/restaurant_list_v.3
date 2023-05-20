@@ -1,22 +1,24 @@
-// Include mongoose and connect to database under recommend method
+// 載入 mongoose
 const mongoose = require('mongoose')
-// Include dotenv only in informal environment
+
+// 僅在非正式環境時, 使用 dotenv
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 
+// 設定連線到 mongoose (MONGODB_URL 設定在 .env 檔案)
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
 
-// access connection
+// 取得資料庫連線狀態
 const db = mongoose.connection
-// deviate
+// 連線失敗
 db.on('error', () => {
   console.log('MongoDB error!')
 })
-// success
+// 連線成功
 db.once('open', () => {
   console.log('MongoDB connected!')
 })

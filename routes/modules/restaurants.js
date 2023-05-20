@@ -2,11 +2,12 @@ const express = require('express')
 const router = express.Router()
 const Favorite = require('../../models/favorite')
 
-// Handle New page and Add
-// url is same as get details, need to be put in front of get details
+// 進入新增餐廳頁面
 router.get('/new', (req, res) => {
   res.render('new')
 })
+
+// 新增餐廳
 router.post('/', (req, res) => {
   const data = req.body
   console.log(data)
@@ -15,7 +16,7 @@ router.post('/', (req, res) => {
     .catch(error => console.log(error))
 })
 
-// Handle Show
+// 瀏覽一家餐廳的詳細資訊
 router.get('/:restaurant_id', (req, res) => {
   const id = req.params.restaurant_id
   return Favorite.findById(id)
@@ -24,7 +25,7 @@ router.get('/:restaurant_id', (req, res) => {
     .catch(error => console.log(error))
 })
 
-// Handle Edit
+// 進入編輯頁面
 router.get('/:id/edit', (req, res) => {
   const id = req.params.id
   return Favorite.findById(id)
@@ -32,6 +33,8 @@ router.get('/:id/edit', (req, res) => {
     .then((restaurant) => res.render('edit', { restaurant }))
     .catch(error => console.log(error))
 })
+
+// 修改餐廳
 router.put('/:id', (req, res) => {
   const id = req.params.id
   const data = req.body
@@ -40,7 +43,7 @@ router.put('/:id', (req, res) => {
     .catch(error => console.log(error))
 })
 
-// Handle delete
+// 刪除餐廳
 router.delete('/:id', (req, res) => {
   const id = req.params.id
   return Favorite.findById(id)

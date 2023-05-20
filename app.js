@@ -1,18 +1,20 @@
 // Include express from node_modules
 const express = require('express')
-const app = express()
-// Define server related variables
-const port = 3000
 // require express-handlebars here
 const exphbs = require('express-handlebars')
-// Include method-override
-const methodOverride = require('method-override')
 // Include body-parser
 const bodyParser = require('body-parser')
+// Include method-override
+const methodOverride = require('method-override')
+// Define server related variables
+const port = 3000
+
 // Include router
 const routes = require('./routes')
 // require mongoose
 require('./config/mongoose')
+
+const app = express()
 
 // setting template engine
 app.engine("handlebars", exphbs({ defaultLayout: "main" }))
