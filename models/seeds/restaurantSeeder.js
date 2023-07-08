@@ -1,20 +1,42 @@
-const db = require('../../config/mongoose')
-// 載入 Restaurant model
-const Restaurant = require('../restaurant')
+const bcrypt = require('bcryptjs')
 
-// 僅在非正式環境時, 使用 dotenv
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 
-const restaurantList = require('.restaurant.json').results
-
+const db = require('../../config/mongoose')
+const Restaurant = require('../restaurant')
+const User = require('../user')
+const restaurantList = require('./restaurant.json').results
+const userList = require('./user.json')
 
 db.once('open', () => {
-  Restaurant.create(restaurantList)
+  Promise.all(
+    Array.from(userList, seedUser => {
+      return bcrypt
+        .genSalt(10)
+        .then(salt => bcrypt.hash(seedUser.password, salt))
+        .then(hash => User.create({
+          name: seedUser.name,
+          email: seedUser.email,
+          password: hash
+        }))
+        .then(user => {
+          const userId = user._id
+          const restaurant = []
+
+          console.log(seedUser.restaurantIndex)
+
+          Array.from(seedUser.restaurantIndex, index => {
+            restaurantList[index].userId = userId
+            restaurant.push(restaurantList[index])
+          })
+          return Restaurant.create(restaurant)
+        })
+    }))
     .then(() => {
-      console.log('restaurantSeeder done!')
-      db.close()
+      console.log('done.')
+      process.exit()
     })
-    .catch(error => console.log(error))
+    .catch(err => console.log(err))
 })
