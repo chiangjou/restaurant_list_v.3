@@ -1,23 +1,28 @@
+body {
+  padding-bottom: 50px;
+}
+
 header {
   overflow: hidden;
 }
 
 .navbar .navbar-brand {
-  color: #4592af;
+  color: #b9a584;
 }
 
 .navbar .navbar-brand:hover {
-  color: #226089;
+  color: #896522;
 }
 
 .banner {
   position: relative;
   z-index: -1;
   margin: -5px;
-  height: 360px;
-  background: #dddddd center center url('https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/5720/restaurants-list-cover.jpg');
+  height: 300px;
+  background: #dddddd center center url('https://margaret.tw/wp-content/uploads/nEO_IMG_DSC02511.jpg');
   background-size: cover;
-  filter: blur(3px);
+  filter: blur(2.5px);
+  opacity: 0.8;
 }
 
 .search-bar .search-bar-outer {
@@ -32,7 +37,7 @@ header {
 }
 
 .search-bar .search-bar-inner h4 {
-  color: #9b4b4b;
+  color: #226089;
 }
 
 .form-control::placeholder {
@@ -70,32 +75,31 @@ header {
 }
 
 .restaurant-show-title {
-  position: relative;
-  top: -100px;
-  color: white;
+  color: #896522;
   text-align: center;
   font-size: 3rem;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 @media screen and (max-width: 992px) {
-
   .card img {
     height: 115px;
   }
 }
 
 @media screen and (max-width: 768px) {
-
   .restaurant-show-title {
     font-size: 2rem;
   }
 }
 
 @media screen and (max-width: 575px) {
-
   .card img {
     height: auto;
   }
 
+}
+
+a, a:hover {
+  color: #fff;
 }

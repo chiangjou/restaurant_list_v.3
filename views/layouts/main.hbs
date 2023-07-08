@@ -20,17 +20,17 @@
 <body>
   <header>
     <!-- navigation -->
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar">
       <div class="container">
         <a class="navbar-brand" href="/">
-          <img src="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png"
-            width="30" height="30" class="d-inline-block align-top" alt="我的餐廳清單" />
-          我的餐廳清單
+          <img src="https://png.pngtree.com/template/20190927/ourlarge/pngtree-restaurant-icon-logo-design-template-packages-image_312033.jpg"
+            width="50" height="50" class="d-inline-block " alt="我的餐廳清單" />
+          {{#if isAuthenticated}}{{ user.name }} 的餐廳清單{{/if}}
         </a>
         {{#if isAuthenticated}}
-          <a href="/users/logout" class="btn btn-ouline-light">Logout</a>
+          <a href="/users/logout" class="btn btn-outline-secondary btn-sm">Logout</a>
         {{else}}  
-          <a href="/users/login" class="btn btn-outline-light">Login</a>
+          <a href="/users/login" class="btn btn-outline-secondary btn-sm">Login</a>
         {{/if}}
       </div>
     </nav>

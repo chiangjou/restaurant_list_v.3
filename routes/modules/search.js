@@ -1,8 +1,10 @@
 const express = require('express')
 const router = express.Router()
-const Favorite = require('../../models/favorite')
+
+const Restaurant = require('../../models/restaurant')
 
 router.get('/', (req, res) => {
+  const userId = req.user._id
   // sort 被賦值為 dropdown box 選擇到的元素的 value
   const { keyword, sort } = req.query
   const keywordLowerCase = req.query.keyword.toLowerCase().trim()
@@ -12,7 +14,7 @@ router.get('/', (req, res) => {
     return res.redirect('/')
   }
 
-  return Favorite.find()
+  return Restaurant.find({ userId })
     .lean()
     .sort(sort)
     .then((restaurant) => {

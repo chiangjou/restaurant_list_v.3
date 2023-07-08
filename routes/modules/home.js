@@ -1,18 +1,16 @@
-// 引用 Express 與 Express 路由器
 const express = require('express')
 const router = express.Router()
 
-// 引用 Favorite model
-const Favorite = require('../../models/favorite')
+const Restaurant = require('../../models/restaurant')
 
-// 定義首頁路由，瀏覽所有餐廳
+// 首頁路由，瀏覽所有餐廳
 router.get('/', (req, res) => {
-  Favorite.find()
+  const userId = req.user._id
+  Restaurant.find({ userId })
     .lean()
-    .sort({ _id: 'asc'})
-    .then(restaurant => res.render('index', { restaurant }))
+    .sort({ _id: 'asc' })
+    .then(restaurants => res.render('index', { restaurants }))
     .catch(error => console.log(error))
 })
 
-// 匯出路由模組
 module.exports = router
