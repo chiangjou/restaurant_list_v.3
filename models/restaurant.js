@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 const restaurantSchema = new Schema({
@@ -40,10 +40,10 @@ const restaurantSchema = new Schema({
   },
   userId: {   // 加入關聯設定
     type: Schema.Types.ObjectId,
-    ref: 'User',
+    ref: "User",
     index: true,
     required: true
   }
 })
 
-module.exports = mongoose.model('Restaurant', restaurantSchema)
+module.exports = mongoose.model("Restaurant", restaurantSchema)

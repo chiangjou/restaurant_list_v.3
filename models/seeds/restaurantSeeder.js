@@ -1,16 +1,16 @@
-const bcrypt = require('bcryptjs')
+const bcrypt = require("bcryptjs")
 
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config()
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config()
 }
 
-const db = require('../../config/mongoose')
-const Restaurant = require('../restaurant')
-const User = require('../user')
-const restaurantList = require('./restaurant.json').results
-const userList = require('./user.json')
+const db = require("../../config/mongoose")
+const Restaurant = require("../restaurant")
+const User = require("../user")
+const restaurantList = require("./restaurant.json").results
+const userList = require("./user.json")
 
-db.once('open', () => {
+db.once("open", () => {
   Promise.all(
     Array.from(userList, seedUser => {
       return bcrypt
@@ -35,7 +35,7 @@ db.once('open', () => {
         })
     }))
     .then(() => {
-      console.log('done.')
+      console.log("done.")
       process.exit()
     })
     .catch(err => console.log(err))

@@ -1,19 +1,19 @@
-const express = require('express')
+const express = require("express")
 const router = express.Router()
-const Restaurant = require('../../models/restaurant')
+const Restaurant = require("../../models/restaurant")
 
 // 首頁路由，瀏覽所有餐廳
-router.get('/', (req, res) => {
+router.get("/", (req, res) => {
   const userId = req.user._id
   Restaurant.find({ userId })
     .lean()
-    .sort({ _id: 'asc' })
-    .then(restaurants => res.render('index', { restaurants }))
+    .sort({ _id: "asc" })
+    .then(restaurants => res.render("index", { restaurants }))
     .catch(error => console.log(error))
 })
 
 // 搜尋餐廳
-router.get('/search', (req, res) => {
+router.get("/search", (req, res) => {
   const userId = req.user._id
   const keyword = req.query.keyword
   const keywordLowerCase = keyword.toLowerCase().trim()
@@ -26,9 +26,9 @@ router.get('/search', (req, res) => {
       })
 
       if (filteredRestaurants.length) {
-        res.render('index', { restaurants: filteredRestaurants, keyword: keyword })
+        res.render("index", { restaurants: filteredRestaurants, keyword: keyword })
       } else {
-        res.render('searchNoResult', { keyword })
+        res.render("searchNoResult", { keyword })
       }
     })
 })

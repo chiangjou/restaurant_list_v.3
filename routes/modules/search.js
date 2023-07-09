@@ -1,18 +1,18 @@
-const express = require('express')
+const express = require("express")
 const router = express.Router()
 
-const Restaurant = require('../../models/restaurant')
+const Restaurant = require("../../models/restaurant")
 
 
-// router.get('/', (req, res) => {
+// router.get("/", (req, res) => {
 //   const keywords = req.query.keyword
 
 //   if (!keywords) {
-//     res.redirect('/')
+//     res.redirect("/")
 //   }
 // })
 
-// router.get('/', (req, res) => {
+// router.get("/", (req, res) => {
 //   const userId = req.user._id
 //   const keyword = req.query.keyword
 //   const keywordLowerCase = keyword.toLocaleLowerCase().trim()
@@ -24,16 +24,16 @@ const Restaurant = require('../../models/restaurant')
 //         return restaurant.name.toLowerCase().includes(keywordLowerCase) || restaurant.category.toLowerCase().includes(keywordLowerCase)
 //       })
 //       if (filteredRestaurants.length) {
-//         res.render('index', { restaurant: filteredRestaurants, keyword })
+//         res.render("index", { restaurant: filteredRestaurants, keyword })
 //       } else {
-//         res.render('searchNoResult', { keyword })
+//         res.render("searchNoResult", { keyword })
 //       }
 //     })
 //     .catch(error => console.log(error))
 // })
 
 
-// router.get('/', (req, res) => {
+// router.get("/", (req, res) => {
 //   const userId = req.user._id
 //   // const { keyword, sort } = req.query
 //   const keyword = req.query.keyword
@@ -43,7 +43,7 @@ const Restaurant = require('../../models/restaurant')
 
 //   // 若 keyword 沒有輸入內容，重新導向 / 路由(根目錄)
 //   if (!keyword) {
-//     return res.redirect('/')
+//     return res.redirect("/")
 //   }
 
 //   return Restaurant.find({ userId })
@@ -55,9 +55,9 @@ const Restaurant = require('../../models/restaurant')
 //           data.name.toLowerCase().includes(keywordLowerCase) || data.category.toLowerCase().includes(keywordLowerCase))
 
 //       if (filterRestaurantData.length) {
-//         res.render('index', { restaurant: filterRestaurantData, keyword })
+//         res.render("index", { restaurant: filterRestaurantData, keyword })
 //       } else {
-//         res.render('searchNoResult', { keyword })
+//         res.render("searchNoResult", { keyword })
 //       }
 //     })
 //     .catch(error => console.log(error))
