@@ -44,13 +44,13 @@
             <div class="form-group row">
               <div class="col-sm-10 mt-5 text-center">
                 <a href="/restaurants/{{ restaurant._id }}/edit">
-                  <button class="btn btn-primary m-2">編輯餐廳</button>
+                  <button class="btn btn-primary m-2"><i class="fa-regular fa-pen-to-square"></i> 編輯餐廳</button>
                 </a>
 
-                <a href="/"><button class="btn btn-outline-secondary m-2">返回首頁</button></a>
+                <a href="/"><button class="btn btn-outline-secondary m-2"><i class="fa-solid fa-house"></i> 返回首頁</button></a>
 
                 <form action="/restaurants/{{ restaurant._id }}?_method=DELETE" method="POST" style="display: inline;">
-                  <button type="submit" class="btn btn-danger m-2">刪除餐廳</button>
+                  <button type="submit" class="btn btn-danger m-2"><i class="fa-solid fa-trash"></i> 刪除餐廳</button>
                 </form>
               </div>
             </div>
