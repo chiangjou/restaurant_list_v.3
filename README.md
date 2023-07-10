@@ -17,53 +17,54 @@
 - 連結餐廳的地址到 Google 地圖
 - 搜尋特定餐廳名稱或餐廳類別
 
-![Index page about Restaurant List](./public/image/register.png)
-![Index page about Restaurant List](./public/image/login.png)
-![Index page about Restaurant List](./public/image/create.png)
-![Index page about Restaurant List](./public/image/edit.png)
+![Register_page](./public/image/register.png)
+![Login_page](./public/image/login.png)
+![Create_page](./public/image/create.png)
+![Edit_page](./public/image/edit.png)
 
 ## 使用說明
 
-1. 開啟終端機(Terminal)cd 到存放專案本機位置並執行
+1. 請先確認有安裝 `node.js` 與 `npm`
+
+2. 將專案 clone 到本地
+
+   ```bash
+   git clone https://github.com/chiangjou/restaurant_list_v.3.git
+   ```
+
+3. 透過終端機進入資料夾 `restaurant_list_v.3`
+
+   ```bash
+   cd restaurant_list_v.3
+   ```
+   
+5. 輸入
 
    ```bash
    npm install
    ```
 
-2. 初始
+6. 安裝完畢後，請參考 `.env.example` 文件建立你的 `.env` 文件
 
-   ```bash
-   cd Restaurant_list
-   ```
-
-   ```bash
-   npm install
-   ```
-
-3. 安裝完畢後繼續輸入：
+7. 連線完畢後，繼續輸入：
 
    ```bash
    npm run dev
    ```
 
-4. 若看見此行訊息則代表順利運行：
+8. 若看見此行訊息則代表順利運行，打開瀏覽器進入 `http://localhost:3000`
 
    ```bash
-   Express is running on http://localhost:3000
+   Express is listening on http://localhost:3000
    ```
 
-5. 請打開瀏覽器進入到以下網址：
-
-  ``` bash 
-  http://localhost:3000
-  ```
-
-6. 若欲暫停使用
+9. 若欲暫停使用
 
    ```bash
    ctrl + c
    ```
-Test account
+
+### Test account
 
 >* name: user1
 >* email: user1@example.com
